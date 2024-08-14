@@ -18,15 +18,11 @@ COCO_CLASSES = ['background', 'person', 'bicycle', 'car', 'motorcycle', 'airplan
                 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock',
                 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush']
 
-
 model = TM.detection.ssd300_vgg16(weights=ssdlite320_mobilenet_v3_large, pretrained=True)
 model.eval()
 
-# Obtain video data
-video = cv2.VideoCapture(0)
-
 transformToTensor = T.ToTensor()
-
+video = cv2.VideoCapture(0)
 while True:
 
     # read from video webcam
@@ -54,11 +50,11 @@ while True:
             cv2.rectangle(frame, (x,y), (w,h), (0,0,255),5)
             cv2.putText(frame, str(COCO_CLASSES[labels[i].item()]), (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0,0,255), 2)
 
-        # Display the frame
-        cv2.imshow('Webcam', frame)
+    # Display the frame
+    cv2.imshow('Webcam', frame)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
 # Release the webcam and close windows
 video.release()

@@ -5,20 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3288f5ac-e8d6-40da-bf40-da4a534b299b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ssd_mobilenet.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/.idea/HumanDetect_Recognition_Distance.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Caffe/SSD_MobileNet.caffemodel" beforeDir="false" afterPath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/Caffe/SSD_MobileNet.caffemodel" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Caffe/SSD_MobileNet_prototxt" beforeDir="false" afterPath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/Caffe/SSD_MobileNet_prototxt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FaceRecognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/FaceRecognition.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Saved_people/Elon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Saved_people/Person_ID0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Saved_people/Person_ID1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/detectDNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/HumanDetection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ssd_mobilenet_v2_coco.engine" beforeDir="false" afterPath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/ssd_mobilenet_v2_coco.engine" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/keras/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/keras/keras/src/backend/tests/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/keras/keras/src/backend/tests/test_HumanDetection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/HumanDetection.py" beforeDir="false" afterPath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/HumanDetection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IndustrialProject_YoloV8/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../IndustrialProject_YoloV8/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IndustrialProject_YoloV8/yolov5nu.torchscript" beforeDir="false" afterPath="$PROJECT_DIR$/../IndustrialProject_YoloV8/yolov5nu.torchscript" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IndustrialProject_YoloV8/yolov5nu_ncnn_model/metadata.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../IndustrialProject_YoloV8/yolov5nu_ncnn_model/metadata.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IndustrialProject_YoloV8/yolov8n.torchscript" beforeDir="false" afterPath="$PROJECT_DIR$/../IndustrialProject_YoloV8/yolov8n.torchscript" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IndustrialProject_YoloV8/yolov8n_ncnn_model/metadata.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../IndustrialProject_YoloV8/yolov8n_ncnn_model/metadata.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,21 +40,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.FaceRecognition.executor&quot;: &quot;Run&quot;,
-    &quot;Python.HumanDetection.executor&quot;: &quot;Run&quot;,
-    &quot;Python.detectDNN.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests for test_HumanDetection.TestHumanDetection.executor": "Run",
+    "Python.FaceRecognition.executor": "Run",
+    "Python.HumanDetection.executor": "Run",
+    "Python.detectDNN.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Saved_people" />
       <recent name="$PROJECT_DIR$" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Python tests for test_HumanDetection.TestHumanDetection" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="HumanDetect_Recognition_Distance" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/keras/keras/src/backend/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_HumanDetection.TestHumanDetection&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Python tests for test_HumanDetection.TestHumanDetection" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>

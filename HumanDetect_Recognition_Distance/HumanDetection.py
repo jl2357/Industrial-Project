@@ -1,9 +1,8 @@
 import torchvision.models as TM
 import torchvision.transforms as T
 import torch
-from torchvision.models.detection import ssdlite320_mobilenet_v3_large
 import cv2
-
+import time
 class HumanDetection:
     # define variables
     model = None
@@ -11,7 +10,8 @@ class HumanDetection:
 
     # default constructor
     def __init__(self):
-        self.model = TM.detection.ssdlite320_mobilenet_v3_large(weights=ssdlite320_mobilenet_v3_large, pretrained=True)
+        self.model = TM.detection.ssdlite320_mobilenet_v3_large(weights="SSDLite320_MobileNet_V3_Large_Weights.DEFAULT")
+        #self.model = TM.detection.ssd300_vgg16(pretrained=True)
         self.model.eval()
         # Class labels for the COCO dataset, will be added to a txt file later
         self.COCO_CLASSES = ['background', 'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
@@ -29,6 +29,11 @@ class HumanDetection:
     def runDetection(self):
         transformtotensor = T.ToTensor()
         video = cv2.VideoCapture(0)
+
+        # Testing seconds to get to 30 frames
+        # start = time.time()
+        # image processing code... unexpanded
+        #for i in range(0,30):
         while True:
 
             # read from video webcam
@@ -64,6 +69,12 @@ class HumanDetection:
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
+        # stop the timer
+        # end = time.time()
+        # get the number of seconds to reach 30 frames
+        # seconds = end - start
+        # print("Time taken to get 30 frames for SSDLite320_MobileNet_v3: {0} seconds".format(seconds))
+        # print("Frames per second: {0}".format(30/seconds))
         # Release the webcam and close windows
         video.release()
         cv2.destroyAllWindows()

@@ -10,10 +10,10 @@ import cv2
 model = YOLO('yolov8n.pt')
 
 # exporting to ncnn model
-model.export(format="engine")
+model.export(format="ncnn")
 
 # loading the ncnn model
-trt_model = YOLO("yolov8n.engine")
+ncnn_model = YOLO("./yolov8n_ncnn_model")
 
 # Obtain video data
 video = cv2.VideoCapture(0)
@@ -24,7 +24,7 @@ while True:
     # Convert frame to grayscale
     #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    results = trt_model.track(frame, persist=True)
+    results = ncnn_model.track(frame, persist=True)
     frame_ = results[0].plot()
     # Display the video
 
@@ -37,23 +37,6 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord("q"):
 
         break
-
-# get output
-items = []
-id = []
-for result in results_output:
-    detection_count = result.boxes.shape[0]
-
-    for i in range(detection_count):
-        cls = int(result.boxes.cls[i].item())
-
-        if result[i].boxes.id not in id:
-            items.append(result.names[cls])
-            id.append(result[i].boxes.id)
-
-print("\nThere are " + str(len(items)+1) + " items found: ")
-for i in range(len(items)):
-    print("- " + str(items[i]) + ", item ID = " + str(id[i]))
 
 video.release()
 cv2.destroyAllWindows()

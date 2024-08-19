@@ -11,6 +11,7 @@ def face_confidence(face_distance, face_match_threshold=0.6):
     range = (1.0 - face_match_threshold)
     linear_val = (1.0 - face_distance) / (range * 2.0)
 
+    # Drop if below threshold
     if face_distance > face_match_threshold:
         return str(round(linear_val * 100, 2)) + '%'
     else:
@@ -42,7 +43,7 @@ class HumanRecognition:
                 face_encoding = face_recognition.face_encodings(face_image)[0]
                 self.known_face_encodings.append(face_encoding)
                 self.known_face_names.append(image)
-                print(self.known_face_names)
+
             except:
                 # Catch the error created if no faces are found
                 # If no faces are identified in a file (From taking an image), remove the file
@@ -88,8 +89,8 @@ class HumanRecognition:
 
                     # If no matches are found, save a new face image to Saved_people for later identification
                     elif name == 'Unknown':
-                        # Create the fiel name for the newly saved image
-                        # Add file names saved as ID, incrementing ID if already exists in file
+                        # Create the file name for the newly saved image
+                        # Add file names saved as person_ID, incrementing ID if already exists in file
                         i = 0
                         while os.path.exists('Saved_people/Person_ID%s.png' % i):
                             i += 1
@@ -124,5 +125,5 @@ class HumanRecognition:
 
 
 # Testing the facial recognition
-test = HumanRecognition()
-test.run_recognition()
+rec = HumanRecognition()
+rec.run_recognition()

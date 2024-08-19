@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ssd_mobilenet.iml" filepath="$PROJECT_DIR$/.idea/ssd_mobilenet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../HumanDetect_Recognition_Distance/.idea/HumanDetect_Recognition_Distance.iml" filepath="$PROJECT_DIR$/../HumanDetect_Recognition_Distance/.idea/HumanDetect_Recognition_Distance.iml" />
     </modules>
   </component>
 </project>

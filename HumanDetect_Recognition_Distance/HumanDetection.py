@@ -31,9 +31,9 @@ class HumanDetection:
         video = cv2.VideoCapture(0)
 
         # Testing seconds to get to 30 frames
-        # start = time.time()
+        start = time.time()
         # image processing code... unexpanded
-        #for i in range(0,30):
+
         while True:
 
             # read from video webcam
@@ -70,11 +70,11 @@ class HumanDetection:
                 break
 
         # stop the timer
-        # end = time.time()
+        end = time.time()
         # get the number of seconds to reach 30 frames
-        # seconds = end - start
-        # print("Time taken to get 30 frames for SSDLite320_MobileNet_v3: {0} seconds".format(seconds))
-        # print("Frames per second: {0}".format(30/seconds))
+        seconds = end - start
+        print("Time taken to get 30 frames for SSD300_VGG16: {0} seconds".format(seconds))
+        print("Frames per second: {0}".format(30/seconds))
         # Release the webcam and close windows
         video.release()
         cv2.destroyAllWindows()

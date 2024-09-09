@@ -11,6 +11,7 @@ class HumanDetection:
     # default constructor
     def __init__(self):
         self.model = TM.detection.ssdlite320_mobilenet_v3_large(weights="SSDLite320_MobileNet_V3_Large_Weights.DEFAULT")
+        #self.model = TM.detection.ssdlite320_mobilenet_v3_large(weights="SSDLite320_MobileNet_V3_Large_Weights.DEFAULT")
         #self.model = TM.detection.ssd300_vgg16(pretrained=True)
         self.model.eval()
         # Class labels for the COCO dataset, will be added to a txt file later

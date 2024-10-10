@@ -3,6 +3,34 @@ import torchvision.transforms as T
 import torch
 import cv2
 import time
+
+def gstreamer_pipeline(
+    sensor_id=0,
+    capture_width=1920,
+    capture_height=1080,
+    display_width=960,
+    display_height=540,
+    framerate=30,
+    flip_method=0,
+):
+    return (
+        "nvarguscamerasrc sensor-id=%d ! "
+        "video/x-raw(memory:NVMM), width=(int)%d, height=(int)%d, framerate=(fraction)%d/1 ! "
+        "nvvidconv flip-method=%d ! "
+        "video/x-raw, width=(int)%d, height=(int)%d, format=(string)BGRx ! "
+        "videoconvert ! "
+        "video/x-raw, format=(string)BGR ! appsink"
+        % (
+            sensor_id,
+            capture_width,
+            capture_height,
+            framerate,
+            flip_method,
+            display_width,
+            display_height,
+        )
+    )
+
 class HumanDetection:
     # define variables
     model = None
@@ -10,8 +38,8 @@ class HumanDetection:
 
     # default constructor
     def __init__(self):
+        #self.model = TM.detection.retinanet_resnet50_fpn(pretrained=True)        
         self.model = TM.detection.ssdlite320_mobilenet_v3_large(weights="SSDLite320_MobileNet_V3_Large_Weights.DEFAULT")
-        #self.model = TM.detection.ssdlite320_mobilenet_v3_large(weights="SSDLite320_MobileNet_V3_Large_Weights.DEFAULT")
         #self.model = TM.detection.ssd300_vgg16(pretrained=True)
         self.model.eval()
         # Class labels for the COCO dataset, will be added to a txt file later
@@ -29,8 +57,7 @@ class HumanDetection:
                 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush']
     def runDetection(self):
         transformtotensor = T.ToTensor()
-        video = cv2.VideoCapture(0)
-
+        video = cv2.VideoCapture(gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
         # Testing seconds to get to 30 frames
         start = time.time()
         # image processing code... unexpanded

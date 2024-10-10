@@ -4,7 +4,36 @@ import sys
 import math
 import numpy
 import cv2
+import time
 import face_recognition
+import JetsonCords
+
+def gstreamer_pipeline(
+    sensor_id=0,
+    capture_width=1920,
+    capture_height=1080,
+    display_width=960,
+    display_height=540,
+    framerate=30,
+    flip_method=0,
+):
+    return (
+        "nvarguscamerasrc sensor-id=%d ! "
+        "video/x-raw(memory:NVMM), width=(int)%d, height=(int)%d, framerate=(fraction)%d/1 ! "
+        "nvvidconv flip-method=%d ! "
+        "video/x-raw, width=(int)%d, height=(int)%d, format=(string)BGRx ! "
+        "videoconvert ! "
+        "video/x-raw, format=(string)BGR ! appsink"
+        % (
+            sensor_id,
+            capture_width,
+            capture_height,
+            framerate,
+            flip_method,
+            display_width,
+            display_height,
+        )
+    )
 
 # Obtain the percentage of face match
 def face_confidence(face_distance, face_match_threshold=0.6):
@@ -13,10 +42,12 @@ def face_confidence(face_distance, face_match_threshold=0.6):
 
     # Drop if below threshold
     if face_distance > face_match_threshold:
-        return str(round(linear_val * 100, 2)) + '%'
+        return (round(linear_val * 100, 2))
     else:
         value = (linear_val + ((1.0 - linear_val) * math.pow((linear_val - 0.5) * 2, 0.2))) * 100
-        return str(round(value, 2)) + '%'
+        return (round(value, 2))
+
+Position = JetsonCords.RobotPos()
 
 # Human recognition using face recognition package
 class HumanRecognition:
@@ -28,11 +59,13 @@ class HumanRecognition:
     known_face_names = []
     process_current_frame = True
 
+
     # Default constructor
     def __init__(self):
         self.encode_faces()
+        
 
-    # Facial detection
+   # Facial detection
     def encode_faces(self):
         for image in os.listdir('Saved_people'):
             # Find faces in the saved_people folder. if no faces identified, an error is returned
@@ -52,7 +85,7 @@ class HumanRecognition:
 
     def run_recognition(self):
         # Obtain video data
-        video = cv2.VideoCapture(0)
+        video = cv2.VideoCapture(gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
         # Exit if no video source is found
         if not video.isOpened():
             sys.exit('Unable to display video')
@@ -74,6 +107,7 @@ class HumanRecognition:
                 for face_encoding in self.face_encodings:
                     # Compare the faces in face encoding with identified face
                     matches = face_recognition.compare_faces(self.known_face_encodings, face_encoding)
+
                     # Set default value of all identified faces as Unknown
                     name = 'Unknown'
                     confidence = 'Unknown'
@@ -81,26 +115,57 @@ class HumanRecognition:
                     face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
                     best_match_index = numpy.argmin(face_distances)
 
-                    # If a match has been found
-                    if matches[best_match_index]:
-                        # Get file name and confidence level of identified face
-                        name = self.known_face_names[best_match_index]
-                        confidence = face_confidence(face_distances[best_match_index])
+                    for face_encoding in self.face_encodings:
+                        # Compare the faces in face encoding with identified face
+                        matches = face_recognition.compare_faces(self.known_face_encodings, face_encoding)
 
-                    # If no matches are found, save a new face image to Saved_people for later identification
-                    elif name == 'Unknown':
+                        # Set default value of all identified faces as Unknown
+                        name = 'Unknown'
+                        confidence = 'Unknown'
+
+                        face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
+                        best_match_index = numpy.argmin(face_distances)
+
+                        # If a match has been found
+                        if matches[best_match_index]:
+                            if face_confidence(face_distances[best_match_index]) > 90.0:
+                                # Get file name and confidence level of identified face
+                                name = self.known_face_names[best_match_index]
+                                confidence = face_confidence(face_distances[best_match_index])
+                                
+
+                            else:
+                                name = 'Recalculating..'
+                                confidence = 'Recalculating..'
+
+
+        	            # Get the position of the robot if a person is identified
+                            Position.getCords(name)
+
+                        # If no matches are found, save a new face image to Saved_people for later identification
+                        elif name == 'Unknown':
+
                         # Create the file name for the newly saved image
                         # Add file names saved as person_ID, incrementing ID if already exists in file
-                        i = 0
-                        while os.path.exists('Saved_people/Person_ID%s.png' % i):
-                            i += 1
+                            i = 0
+                            while os.path.exists('Saved_people/Person_ID%s.png' % i):
+                                i += 1
 
                         # Take a picture of the unidentified face, and save it to the Saved_people folder
-                        cv2.imwrite('Saved_people/Person_ID%s.png' % i, frame)
-                        # Re-encode the face of the saved file
-                        self.encode_faces()
 
-                    self.face_names.append(f'{name} ({confidence})')
+                            cv2.imwrite('Saved_people/Person_ID%s.png' % i, frame)
+                            # Re-encode the face of the saved file
+                            self.encode_faces()
+                            print("encoded")
+    
+                        else:
+                            name = 'Unknown'
+                            confidence = 'Unknown'
+                    
+
+                    self.face_names.append(f'{name} ({confidence}) %')
+  
+                    
 
             # Change the state of process_current_frame, only process every other frame to save resources
             self.process_current_frame = not self.process_current_frame
